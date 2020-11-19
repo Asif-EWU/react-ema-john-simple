@@ -19,10 +19,11 @@ const Shop = () => {
             <div className="product-container">
                 {
                     products.map(product => <Product
-                         key={product.key} 
-                         product={product}
-                         handleAddProduct={handleAddProduct}>
-                         </Product>)
+                            key={product.key} 
+                            product={product}
+                            handleAddProduct={handleAddProduct}
+                        ></Product>
+                    )
                 }
             </div>
             
