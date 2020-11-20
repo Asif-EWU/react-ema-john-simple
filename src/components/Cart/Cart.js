@@ -14,7 +14,7 @@ const Cart = (props) => {
     totalPrice = formatNumber(totalPrice);
 
     let shipping;
-    if(totalPrice == 0 || totalPrice >= 35) shipping = 0;
+    if(totalPrice === 0 || totalPrice >= 35) shipping = 0;
     else if(totalPrice >= 15) shipping = 4.99;
     else shipping = 12.99;
 
