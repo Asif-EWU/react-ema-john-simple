@@ -9,7 +9,7 @@ const Cart = (props) => {
     let totalPrice = 0;
     for (let i = 0; i < cart.length; i++) {
         const product = cart[i];
-        totalPrice += product.price;
+        totalPrice += product.price * product.quantity;
     }
 
     totalPrice = formatNumber(totalPrice);
