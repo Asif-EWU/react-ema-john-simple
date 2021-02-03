@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { UserContext } from '../../App';
 import { useHistory, useLocation } from 'react-router-dom';
 import { createUserWithEmailAndPassword, handleFbSignIn, handleGoogleSignIn, handleSignOut, initializeLoginFramework, signInWithEmailAndPassword } from './loginManager';
@@ -17,36 +17,38 @@ const Login = () => {
   initializeLoginFramework();
   const [user, setUser] = useState(signedOutUser);
   const [newUser, setNewUser] = useState(false);
-  const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+  const [, setLoggedInUser] = useContext(UserContext);
   let history = useHistory();
   let location = useLocation();
 
   let { from } = location.state || { from: { pathname: "/" } };
 
-  const handleResponse = (res, redirect) => {
+  const handleResponse = (res) => {
     setUser(res);
-    setLoggedInUser(res);
-    if(redirect) history.replace(from);
+    if(res.success) {
+      setLoggedInUser(res);
+      history.replace(from);
+    }
   }
 
   const googleSignIn = () => {
     handleGoogleSignIn()
       .then(res => {
-        handleResponse(res, true);
+        handleResponse(res);
       });
   }
 
   const fbSignIn = () => {
     handleFbSignIn()
       .then(res => {
-        handleResponse(res, true);
+        handleResponse(res);
       })
   }
 
   const signOut = () => {
     handleSignOut()
       .then(res => {
-        handleResponse(res, false);
+        handleResponse(res);
       });
   }
 
@@ -77,28 +79,23 @@ const Login = () => {
     if (newUser && name && email && password) {
       createUserWithEmailAndPassword(name, email, password)
         .then(res => {
-          handleResponse(res, true);
+          handleResponse(res);
         })
     }
 
     if (!newUser && email && password) {
       signInWithEmailAndPassword(email, password)
       .then(res => {
-        handleResponse(res, true);
+        handleResponse(res);
       })
     }
   };
 
-  let halo;
-  if(user.success) halo = <p>successful</p>
-  else halo = <p>failed</p>
-
   return (
     <div style={{ textAlign: 'center' }}>
       {
-        user.isSignedIn 
-          ? <button onClick={signOut}>Google Sign out</button> 
-          : <button onClick={googleSignIn}>Google Sign in</button>
+        user.isSignedIn ? <button onClick={signOut}>Google Sign out</button> :
+          <button onClick={googleSignIn}>Google Sign in</button>
       }
       <br />
       <button onClick={fbSignIn}>Sign in using Facebook</button>
@@ -124,7 +121,6 @@ const Login = () => {
         <br />
         <input name="submit" type="submit" value={newUser ? 'Sign Up' : 'Sign In'} />
       </form>
-      <p>{halo}</p>
       {
         user.success
           ? <p style={{ color: 'green' }}>User {newUser ? 'Created' : 'Logged In'} Successfully !!</p>

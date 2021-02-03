@@ -5,7 +5,7 @@ import logo from '../../images/logo.png';
 import './Header.css';
 
 const Header = () => {
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const [, setLoggedInUser] = useContext(UserContext);
 
     return (
         <div className="header">

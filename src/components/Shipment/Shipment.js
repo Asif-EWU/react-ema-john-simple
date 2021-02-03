@@ -5,7 +5,7 @@ import './Shipment.css';
 
 const Shipment = () => {
     const { register, handleSubmit, watch, errors } = useForm();
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const [loggedInUser] = useContext(UserContext);
     const {name, email} = loggedInUser;
     const onSubmit = data => console.log(data);
 

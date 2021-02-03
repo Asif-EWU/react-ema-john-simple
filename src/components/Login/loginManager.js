@@ -9,7 +9,7 @@ export const initializeLoginFramework = () => {
     else {
         firebase.app(); // if already initialized, use that one
     }
-};
+}
 
 const signedOutUser = {
     isSignedIn: false,
@@ -19,7 +19,7 @@ const signedOutUser = {
     photo: '',
     error: '',
     success: false
-};
+  };
 
 export const handleGoogleSignIn = () => {
     const googleProvider = new firebase.auth.GoogleAuthProvider();
@@ -45,7 +45,9 @@ export const handleGoogleSignIn = () => {
 export const handleFbSignIn = () => {
     const fbProvider = new firebase.auth.FacebookAuthProvider();
 
-    return firebase.auth().signInWithPopup(fbProvider)
+    return firebase
+        .auth()
+        .signInWithPopup(fbProvider)
         .then((res) => {
             const { displayName, email, photoURL } = res.user;
             const signedInUser = {
@@ -59,7 +61,6 @@ export const handleFbSignIn = () => {
         })
         .catch((error) => {
             signedOutUser.error = error.message;
-            console.log(error.message);
             return signedOutUser;
         });
 };
