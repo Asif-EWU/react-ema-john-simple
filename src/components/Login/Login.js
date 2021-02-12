@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../../App';
 import { useHistory, useLocation } from 'react-router-dom';
-import { createUserWithEmailAndPassword, handleFbSignIn, handleGoogleSignIn, handleSignOut, initializeLoginFramework, signInWithEmailAndPassword } from './loginManager';
+import { createUserWithEmailAndPassword, handleFbSignIn, handleGoogleSignIn, handleSignOut, initializeLoginFramework, resetPassword, signInWithEmailAndPassword } from './loginManager';
 
 const Login = () => {
   const signedOutUser = {
@@ -121,6 +121,7 @@ const Login = () => {
         <br />
         <input name="submit" type="submit" value={newUser ? 'Sign Up' : 'Sign In'} />
       </form>
+      <button onClick={() => resetPassword(user.email)}>Forget or Reset Password</button>
       {
         user.success
           ? <p style={{ color: 'green' }}>User {newUser ? 'Created' : 'Logged In'} Successfully !!</p>
