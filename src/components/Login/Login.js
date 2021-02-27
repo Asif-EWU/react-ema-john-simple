@@ -94,8 +94,9 @@ const Login = () => {
   return (
     <div style={{ textAlign: 'center' }}>
       {
-        user.isSignedIn ? <button onClick={signOut}>Google Sign out</button> :
-          <button onClick={googleSignIn}>Google Sign in</button>
+        user.isSignedIn 
+          ? <button onClick={signOut}>Google Sign out</button> 
+          : <button onClick={googleSignIn}>Google Sign in</button>
       }
       <br />
       <button onClick={fbSignIn}>Sign in using Facebook</button>
@@ -104,6 +105,7 @@ const Login = () => {
         <div>
           <p>Welcome, {user.name}</p>
           <p>Your email: {user.email}</p>
+          <p>Your city: {user.city}</p>
           <img src={user.photo} alt="" />
         </div>
       }
