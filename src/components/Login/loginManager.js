@@ -19,7 +19,7 @@ const signedOutUser = {
     photo: '',
     error: '',
     success: false
-  };
+};
 
 export const handleGoogleSignIn = () => {
     const googleProvider = new firebase.auth.GoogleAuthProvider();
@@ -77,34 +77,40 @@ export const handleSignOut = () => {
 export const createUserWithEmailAndPassword = (name, email, password) => {
     return firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((res) => {
-            const newUserInfo = res.user;
-            newUserInfo.error = '';
-            newUserInfo.success = true;
+            const { displayName, email, photoURL } = res.user;
+            const signedInUser = {
+                isSignedIn: true,
+                name: displayName,
+                email: email,
+                photo: photoURL,
+                success: true
+            };
             updateUserName(name);
             verifyEmail();
-            return newUserInfo;
+            return signedInUser;
         })
         .catch((error) => {
-            const newUserInfo = {};
-            newUserInfo.error = error.message;
-            newUserInfo.success = false;
-            return newUserInfo;
+            signedOutUser.error = error.message;
+            return signedOutUser;
         });
 }
 
 export const signInWithEmailAndPassword = (email, password) => {
     return firebase.auth().signInWithEmailAndPassword(email, password)
         .then((res) => {
-            const newUserInfo = res.user;
-            newUserInfo.error = '';
-            newUserInfo.success = true;
-            return newUserInfo;
+            const { displayName, email, photoURL } = res.user;
+            const signedInUser = {
+                isSignedIn: true,
+                name: displayName,
+                email: email,
+                photo: photoURL,
+                success: true
+            };
+            return signedInUser;
         })
         .catch((error) => {
-            const newUserInfo = {};
-            newUserInfo.error = error.message;
-            newUserInfo.success = false;
-            return newUserInfo;
+            signedOutUser.error = error.message;
+            return signedOutUser;
         });
 }
 
@@ -122,18 +128,18 @@ const updateUserName = name => {
 
 const verifyEmail = () => {
     const user = firebase.auth().currentUser;
-    user.sendEmailVerification().then(function() {
-    // Email sent.
-    }).catch(function(error) {
-    // An error happened.
+    user.sendEmailVerification().then(function () {
+        // Email sent.
+    }).catch(function (error) {
+        // An error happened.
     });
 }
 
 export const resetPassword = email => {
     const auth = firebase.auth();
-    auth.sendPasswordResetEmail(email).then(function() {
-    // Email sent.
-    }).catch(function(error) {
-    // An error happened.
+    auth.sendPasswordResetEmail(email).then(function () {
+        // Email sent.
+    }).catch(function (error) {
+        // An error happened.
     });
 }

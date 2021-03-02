@@ -4,7 +4,6 @@ import ReviewItem from '../ReviewItem/ReviewItem';
 import './Review.css';
 import Cart from '../Cart/Cart';
 import { useHistory } from 'react-router-dom';
-import happyImage from '../../images/giphy.gif';
 
 
 const Review = () => {
@@ -26,7 +25,7 @@ const Review = () => {
         const savedCart = getDatabaseCart();
         const productKeys = Object.keys(savedCart);
 
-        fetch('http://localhost:5000/productByKeys', { 
+        fetch('https://stark-island-05079.herokuapp.com/productByKeys', { 
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(productKeys)
@@ -37,11 +36,6 @@ const Review = () => {
             setCart(data);
         });
     }, []);
-
-    // let thankyou;
-    // if(orderPlaced) {
-    //     thankyou = <img src={happyImage} alt=""/>
-    // }
 
     return (
         <div className="twin-container">

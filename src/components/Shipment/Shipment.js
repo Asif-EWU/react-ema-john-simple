@@ -6,7 +6,7 @@ import './Shipment.css';
 import happyImage from '../../images/giphy.gif';
 
 const Shipment = () => {
-    const { register, handleSubmit, watch, errors } = useForm();
+    const { register, handleSubmit, errors } = useForm();
     const [loggedInUser] = useContext(UserContext);
     const [orderPlaced, setOrderPlaced] = useState(false);
     const {name, email} = loggedInUser;
@@ -14,7 +14,7 @@ const Shipment = () => {
         const savedCart = getDatabaseCart();
         const orderDetails = {...loggedInUser, products: savedCart, shipment: data, orderTime: new Date()};
 
-        fetch('http://localhost:5000/addOrder', {
+        fetch('https://stark-island-05079.herokuapp.com/addOrder', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify(orderDetails)
@@ -24,12 +24,9 @@ const Shipment = () => {
             if(data){
                 processOrder();
                 setOrderPlaced(true);
-                // alert('Your order placed successfully !!');
             }
         })
     };
-
-    // console.log(watch("example")); 
 
     return (
         <>

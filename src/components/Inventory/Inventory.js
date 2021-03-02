@@ -4,7 +4,7 @@ import './Inventory.css';
 
 const Inventory = () => {
     const handleAddProduct = () => {
-        fetch('http://localhost:5000/addProduct', {
+        fetch('https://stark-island-05079.herokuapp.com/addProduct', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(fakeData)
