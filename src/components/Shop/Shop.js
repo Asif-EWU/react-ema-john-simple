@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css'
+import FadingWheel from '../../images/FadingWheel.gif'
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
@@ -55,6 +56,10 @@ const Shop = () => {
     return (
         <div className="twin-container">
             <div className="product-container">
+                {
+                    products.length === 0 && 
+                    <img style={{"display": "block", "margin": "150px auto"}} src={FadingWheel} alt=""/>
+                }
                 {
                     products.map(product => <Product
                             key={product.key} 
