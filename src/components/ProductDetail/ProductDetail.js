@@ -21,13 +21,10 @@ const ProductDetail = () => {
     return (
         <div>
             { 
-                loading && 
-                <img style={{"display": "block", "margin": "150px auto"}} src={FadingWheel} alt=""/>
+                loading  
+                ? <img style={{"display": "block", "margin": "150px auto"}} src={FadingWheel} alt=""/>
+                : <Product product={product} addToCart={false}></Product>
             }
-            <Product 
-                product={product}
-                addToCart={false}    
-            ></Product>
         </div>
     );
 };

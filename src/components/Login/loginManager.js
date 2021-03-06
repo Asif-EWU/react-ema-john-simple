@@ -34,6 +34,7 @@ export const handleGoogleSignIn = () => {
                 photo: photoURL,
                 success: true
             };
+            setUserToken();
             return signedInUser;
         })
         .catch(error => {
@@ -112,6 +113,15 @@ export const signInWithEmailAndPassword = (email, password) => {
             signedOutUser.error = error.message;
             return signedOutUser;
         });
+}
+
+const setUserToken = () => {
+    firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+        sessionStorage.setItem('token', idToken);
+    }).catch(function(error) {
+    // Handle error
+    });
+      
 }
 
 const updateUserName = name => {
